@@ -3,7 +3,7 @@ import json
 import signal
 import sys
 
-
+# Non Standard imports
 import requests
 
 # Clase dicctionary
@@ -48,10 +48,15 @@ class Dictionary:
 	def cantidad_palabras_diferentes(self):
 		return self.cantPalabras	
 
-
-# REQUEST_URL formatting
-
-TELEGRAM_URL = "https://api.telegram.org/bot"
+# Look up for the token in token.in file
+try: 
+	with open('token.in','r') as file:
+		token = file.readline().rstrip('\n')
+except IOError:
+	print "No encontre el archivo token.in"
+else:
+	""" Si no encuentra el token nunca define TELEGRAM_URL y se cierra """
+	TELEGRAM_URL = "https://api.telegram.org/bot" + token
 
 # Conjunto de palabras a ignorar
 
@@ -153,10 +158,11 @@ def how_many(dict,message):
 	chat_id = message['chat']['id']
 	text = message['text']
 	text_split = text.split(' ')
-	text_split = text_split.lower()
 	if len(text_split) > 1:
+		#Pasamos la query a minuscula
+		query = text_split[1].lower()
 		apariciones = dict.how_many(text_split[1])
-		msj = "La palabra "+text_split[1]+" se uso "+ str(apariciones) +" veces."
+		msj = "La palabra "+query+" se uso "+ str(apariciones) +" veces."
 		bot_send_msg(chat_id,msj)
 	else:
 		bot_send_msg(chat_id,"ah ah ah you didnt say the magic word!")

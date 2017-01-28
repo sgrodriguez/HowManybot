@@ -4,6 +4,6 @@ It shows a top with the five most used words and the total number of different w
 
  TODO:
 * Expand list of ignored words
-* Programate simple backups
+* ~~Programate simple backups~~
 
 

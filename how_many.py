@@ -90,11 +90,11 @@ def main():
 			 	noEsTop = True
 			 	for line in fread.read().splitlines():
 			 		if noEsTop and line != "top":
-			 			dic_temporal[line.split(' ')[0]] = line.split(' ')[1]
+			 			dic_temporal[line.split(' ')[0]] = int(line.split(' ')[1])
 			 		elif line == "top":
 			 			noEsTop = False		
 					else:
-						list_top_temporal.append((line.split(' ')[0],line.split(' ')[1]))
+						list_top_temporal.append((line.split(' ')[0],int(line.split(' ')[1])))
 				dicc_chat[int(filename)] = Dictionary()
 				dicc_chat[int(filename)].crear(dic_temporal,list_top_temporal)
 
